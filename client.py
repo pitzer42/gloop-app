@@ -5,7 +5,7 @@ import aiohttp
 
 async def run_client():
     session = aiohttp.ClientSession()
-    async with session.ws_connect('http://0.0.0.0:8080') as ws:
+    async with session.ws_connect('http://10.1.1.22:8080') as ws:
 
         async def input_loop():
             msg = 0

@@ -1,0 +1,16 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: gloop-app
+spec:
+  containers:
+    - name: gloop-redis
+      image: redis:5.0.6-alpine
+      ports:
+        - containerPort: 6379
+    - name: gloop-relay
+      image: upitzer42/gloop-relay
+      ports:
+        - containerPort: 8080
+    - name: gloop-match-starter
+      image: upitzer42/gloop-match-starter
