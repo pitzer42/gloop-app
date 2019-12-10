@@ -1,9 +1,6 @@
-docker stop relay starter redis_service
-docker rm $(docker ps -a -q)
-docker rmi upitzer42/gloop-relay
-docker rmi upitzer42/gloop-relay
-docker rmi upitzer42/gloop-match-starter
+microk8s.kubectl apply -f /home/arthur/PycharmProjects/gloop-app/deployment.yaml
+microk8s.kubectl port-forward -n kube-system service/kubernetes-dashboard 10443:443 &
 
-docker run -d -p 6379:6379 --name=redis_service redis:5.0.6-alpine 
-docker run -d -p 8080:8080 -e REDIS_ADDRESS=redis://172.17.0.2:6379 --name=relay upitzer42/gloop-relay
-docker run -d --name=starter -e REDIS_ADDRESS=redis://172.17.0.2:6379 upitzer42/gloop-match-starter
+token=$(microk8s.kubectl -n kube-system get secret | grep default-token | cut -d " " -f1)
+microk8s.kubectl -n kube-system describe secret $token
+
